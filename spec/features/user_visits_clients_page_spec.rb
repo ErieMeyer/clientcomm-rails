@@ -9,6 +9,18 @@ feature "logged-out user visits clients page" do
   end
 end
 
+feature "manage action is hidden on mobile", js: true do
+  scenario "user visits client list on mobile" do
+    myuser = create :user
+    login_as(myuser, :scope => :user)
+
+    visit clients_path
+    resize_window_to_mobile
+    expect(page).to_not have_text "Manage"
+    expect(page).to_not have_text "Action"
+  end
+end
+
 feature "logged-in user visits clients page" do
   scenario "successfully" do
     myuser = create :user
