@@ -63,6 +63,17 @@ RSpec.configure do |config|
     example.run
     ActiveJob::Base.queue_adapter.perform_enqueued_jobs = false
   end
+
+  if Bullet.enable?
+    config.before(:each) do
+      Bullet.start_request
+    end
+
+    config.after(:each) do
+      Bullet.perform_out_of_channel_notifications if Bullet.notification?
+      Bullet.end_request
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|

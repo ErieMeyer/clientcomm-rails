@@ -77,6 +77,7 @@ group :development, :test do
   gem 'jasmine'
   gem 'awesome_print'
   gem 'faker'
+  gem 'bullet'
 end
 
 group :development do
